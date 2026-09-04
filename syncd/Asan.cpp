@@ -68,7 +68,7 @@ void asan_inject_test_leak(AsanMallocFn malloc_fn)
     // Feed the pointer to an opaque asm that also reads memory, so -O2 cannot
     // drop the malloc and memset as dead stores. Nothing stores the pointer, so
     // the block remains unreachable.
-    asm volatile("" : : "r"(probe) : "memory");
+    __asm__ __volatile__("" : : "r"(probe) : "memory");
 }
 
 void asan_sigterm_handler_impl(int signo,
